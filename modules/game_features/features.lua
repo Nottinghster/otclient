@@ -189,6 +189,7 @@ controller:registerEvents(g_game, {
 
         if version >= 1260 then
             g_game.enableFeature(GameThingQuiver);
+            g_game.enableFeature(GamePlayerFamiliars);
         end
 
         if version >= 1264 then

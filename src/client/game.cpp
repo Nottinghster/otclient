@@ -404,6 +404,7 @@ void Game::processRemoveAutomapFlag(const Position& pos, int icon, const std::st
 
 void Game::processOpenOutfitWindow(const Outfit& currentOutfit, const std::vector<std::tuple<int, std::string, int> >& outfitList,
                                    const std::vector<std::tuple<int, std::string> >& mountList,
+                                   const std::vector<std::tuple<int, std::string> >& familiarList,
                                    const std::vector<std::tuple<int, std::string> >& wingsList,
                                    const std::vector<std::tuple<int, std::string> >& aurasList,
                                    const std::vector<std::tuple<int, std::string> >& effectList,
@@ -428,7 +429,19 @@ void Game::processOpenOutfitWindow(const Outfit& currentOutfit, const std::vecto
         virtualMountCreature->setOutfit(mountOutfit);
     }
 
-    g_lua.callGlobalField("g_game", "onOpenOutfitWindow", virtualOutfitCreature, outfitList, virtualMountCreature, mountList, wingsList, aurasList, effectList, shaderList);
+    // creature virtual familiar outfit
+    CreaturePtr virtualFamiliarCreature;
+    if (getFeature(Otc::GamePlayerFamiliars)) {
+        Outfit familiarOutfit;
+        familiarOutfit.setId(currentOutfit.getFamiliar());
+        familiarOutfit.setCategory(ThingCategoryCreature);
+
+        virtualFamiliarCreature = std::make_shared<Creature>();
+        virtualFamiliarCreature->setDirection(Otc::South);
+        virtualFamiliarCreature->setOutfit(familiarOutfit);
+    }
+
+    g_lua.callGlobalField("g_game", "onOpenOutfitWindow", virtualOutfitCreature, outfitList, virtualMountCreature, mountList, virtualFamiliarCreature, familiarList, wingsList, aurasList, effectList, shaderList);
 }
 
 void Game::processOpenNpcTrade(const std::vector<std::tuple<ItemPtr, std::string, int, int, int> >& items)

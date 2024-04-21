@@ -248,7 +248,7 @@ end
 local function walkEvent()
     if modules.client_options.getOption('autoChaseOverride') then
         if g_game.isAttacking() and g_game.getChaseMode() == ChaseOpponent then
-            selectPosture('stand', true)
+            selectPosture('stand', false)
         end
     end
 end
@@ -262,14 +262,14 @@ local function combatEvent()
     end
 
     if g_game.getFightMode() == FightOffensive then
-        selectCombat('attack', true)
+        selectCombat('attack', false)
     elseif g_game.getFightMode() == FightBalanced then
-        selectCombat('balanced', true)
+        selectCombat('balanced', false)
     elseif g_game.getFightMode() == FightDefensive then
-        selectCombat('defense', true)
+        selectCombat('defense', false)
     end
 
-    selectPvp(g_game.getPVPMode() == PVPRedFist, true)
+    selectPvp(g_game.getPVPMode() == PVPRedFist, false)
 end
 
 local function inventoryEvent(player, slot, item, oldItem)
@@ -368,6 +368,7 @@ end
 function getIconsPanelOn()
     return inventoryController.ui.onPanel.icons
 end
+
 function getIconsPanelOff()
     return inventoryController.ui.offPanel.icons
 end
@@ -407,20 +408,19 @@ local function refreshInventorySizes()
     walkEvent()
     reloadMainPanelSizes()
 end
-function onSetChaseMode(self, selectedChaseModeButton)
 
+function onSetChaseMode(self, selectedChaseModeButton)
     if selectedChaseModeButton == nil then
         return
     end
+
     local buttonId = selectedChaseModeButton:getId()
     local chaseMode
-
     if buttonId == 'followPosture' then
         chaseMode = ChaseOpponent
     else -- standModeBox
         chaseMode = DontChase
     end
-
     g_game.setChaseMode(chaseMode)
 end
 
@@ -428,20 +428,18 @@ inventoryController = Controller:new()
 inventoryController:setUI('maininventorypanel', modules.game_interface.getMainRightPanel())
 
 local inventoryControllerEvents = inventoryController:addEvent(LocalPlayer, {
-
     onInventoryChange = inventoryEvent,
     onSoulChange = onSoulChange,
     onFreeCapacityChange = onFreeCapacityChange
 })
-local inventoryControllerEvents_game = inventoryController:addEvent(g_game, {
 
+local inventoryControllerEvents_game = inventoryController:addEvent(g_game, {
     onWalk = walkEvent,
     onAutoWalk = walkEvent,
     onFightModeChange = combatEvent,
     onChaseModeChange = combatEvent,
     onSafeFightChange = combatEvent,
     onPVPModeChange = combatEvent
-
 })
 function inventoryController:onInit()
     refreshInventory_panel()

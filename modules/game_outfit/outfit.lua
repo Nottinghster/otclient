@@ -185,16 +185,17 @@ function terminate()
 end
 
 function onMovementChange(checkBox, checked)
-    if checked == true then
-        previewCreature:getCreature():setStaticWalking(1000)
-        if g_game.getFeature(GamePlayerFamiliars) and previewFamiliar:getCreature() then
-            previewFamiliar:getCreature():setStaticWalking(1000)
-        end
+    local walkingSpeed = checked and 1000 or 0 
 
-    else
-        previewCreature:getCreature():setStaticWalking(0)
-        if g_game.getFeature(GamePlayerFamiliars) and previewFamiliar:getCreature() then
-            previewFamiliar:getCreature():setStaticWalking(0)
+    local mainCreature = previewCreature:getCreature()
+    if mainCreature then
+        mainCreature:setStaticWalking(walkingSpeed)
+    end
+
+    if g_game.getFeature(GamePlayerFamiliars) then
+        local familiarCreature = previewFamiliar:getCreature()
+        if familiarCreature then
+            familiarCreature:setStaticWalking(walkingSpeed)
         end
     end
 
@@ -321,7 +322,7 @@ local PreviewOptions = {
 
 function create(player, outfitList, creatureMount, mountList, creatureFamiliar, familiarList, wingsList, auraList,
     effectsList, shaderList)
-    
+
     if ignoreNextOutfitWindow and g_clock.millis() < ignoreNextOutfitWindow + 1000 then
         return
     end
@@ -340,19 +341,7 @@ function create(player, outfitList, creatureMount, mountList, creatureFamiliar, 
         currentOutfit = currentOutfit,
         outfits = outfitList,
         mounts = mountList,
-        -- familiars = familiarList,
-        -- @ DELETE THIS 
-        familiars = {
-            [1] = {
-                [1] = 2,
-                [2] = "familiar 1"
-            },
-            [2] = {
-                [1] = 11,
-                [2] = "familiar 2"
-            }
-        },
-        -- @ 
+        familiars = familiarList,
         wings = wingsList,
         auras = auraList,
         effects = effectsList,

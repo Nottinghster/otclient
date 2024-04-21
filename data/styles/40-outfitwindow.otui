@@ -199,6 +199,12 @@ OutfitWindow < MainWindow
         id: showFamiliar
         height: 22
         padding: 5
+        @onSetup: |
+          if not g_game.getFeature(GamePlayerFamiliars) then
+            self:hide()
+            self:setHeight(0)
+            self:setPadding(0)
+          end
 
         CheckBox
           id: check
@@ -206,7 +212,11 @@ OutfitWindow < MainWindow
           anchors.left: parent.left
           anchors.right: parent.right
           text: Show Familiar
-
+          @onSetup: |
+            if not g_game.getFeature(GamePlayerFamiliars) then
+              self:hide()
+            end
+            
       FlatPanel
         id: showWings
         height: 22
@@ -305,7 +315,9 @@ OutfitWindow < MainWindow
         anchors.centerIn: parent
         size: 256 256
         @onSetup: |
-          self:setVisible(g_game.getFeature(GamePlayerFamiliars))
+          if not g_game.getFeature(GamePlayerFamiliars) then
+            self:hide()
+          end
 
       UICreature
         id: creature
@@ -522,6 +534,11 @@ OutfitWindow < MainWindow
       Panel
         id: familiar
         height: 20
+        @onSetup: |
+          if not g_game.getFeature(GamePlayerFamiliars) then
+            self:hide()
+            self:setHeight(0)
+          end
 
         CheckBox
           id: check
@@ -531,14 +548,22 @@ OutfitWindow < MainWindow
           text-offset: 15 0
           text: familiar:
           width: 84
-        
+          @onSetup: |
+            if not g_game.getFeature(GamePlayerFamiliars) then
+              self:hide()
+            end
+
         FlatPanel
           id: name
           anchors.top: parent.top
           anchors.bottom: parent.bottom
           anchors.left: prev.right
           anchors.right: parent.right
-      
+          @onSetup: |
+            if not g_game.getFeature(GamePlayerFamiliars) then
+              self:hide()
+            end
+
       Panel
         id: wings
         height: 20

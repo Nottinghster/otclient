@@ -248,7 +248,7 @@ end
 local function walkEvent()
     if modules.client_options.getOption('autoChaseOverride') then
         if g_game.isAttacking() and g_game.getChaseMode() == ChaseOpponent then
-            selectPosture('stand', false)
+            selectPosture('stand')
         end
     end
 end
@@ -498,20 +498,16 @@ function inventoryController:onGameEnd()
     inventoryControllerEvents_game:disconnect()
 end
 
-function selectPosture(key, ignoreUpdate)
+function selectPosture(key)
     local ui = getInventoryUi()
     if key == 'stand' then
         ui.standPosture:setEnabled(false)
         ui.followPosture:setEnabled(true)
-        if not ignoreUpdate then
-            g_game.setChaseMode(DontChase)
-        end
+        g_game.setChaseMode(DontChase)
     elseif key == 'follow' then
         ui.standPosture:setEnabled(true)
         ui.followPosture:setEnabled(false)
-        if not ignoreUpdate then
-            g_game.setChaseMode(ChaseOpponent)
-        end
+        g_game.setChaseMode(ChaseOpponent)
     end
 end
 

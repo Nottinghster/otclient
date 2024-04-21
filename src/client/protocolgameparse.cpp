@@ -2339,28 +2339,28 @@ void ProtocolGame::parseOpenOutfitWindow(const InputMessagePtr& msg) const
     if (g_game.getFeature(Otc::GameWingsAurasEffectsShader)) {
         const uint8_t wingCount = msg->getU8();
         for (uint_fast8_t i = 0; i < wingCount; ++i) {
-            const uint16_ wingId = msg->getU16();
+            const uint16_t wingId = msg->getU16();
             const auto& wingName = msg->getString();
             wingList.emplace_back(wingId, wingName);
         }
 
         const uint8_t auraCount = msg->getU8();
         for (uint_fast8_t i = 0; i < auraCount; ++i) {
-            const uint16_ auraId = msg->getU16();
+            const uint16_t auraId = msg->getU16();
             const auto& auraName = msg->getString();
             auraList.emplace_back(auraId, auraName);
         }
 
         const uint8_t effectCount = msg->getU8();
         for (uint_fast8_t i = 0; i < effectCount; ++i) {
-            const uint16_ effectId = msg->getU16();
+            const uint16_t effectId = msg->getU16();
             const auto& effectName = msg->getString();
             effectList.emplace_back(effectId, effectName);
         }
 
         const uint8_t shaderCount = msg->getU8();
         for (uint_fast8_t i = 0; i < shaderCount; ++i) {
-            const uint16_ shaderId = msg->getU16();
+            const uint16_t shaderId = msg->getU16();
             const auto& shaderName = msg->getString();
             shaderList.emplace_back(shaderId, shaderName);
         }

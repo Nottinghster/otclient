@@ -39,7 +39,7 @@ public:
     void setId(uint16_t id) { m_id = id; }
     void setAuxId(uint16_t id) { m_auxId = id; }
     void setMount(uint16_t mount) { m_mount = mount; }
-    void setFamniliar(uint16_t familiar) { m_familiar = familiar; }
+    void setFamiliar(uint16_t familiar) { m_familiar = familiar; }
     void setWing(uint16_t Wing) { m_wing = Wing; }
     void setAura(uint16_t Aura) { m_aura = Aura; }
     void setEffect(uint16_t Effect) { m_effect = Effect; }

@@ -301,6 +301,13 @@ OutfitWindow < MainWindow
           flow: true
       
       UICreature
+        id: familiarui
+        anchors.centerIn: parent
+        size: 256 256
+        @onSetup: |
+          self:setVisible(g_game.getFeature(GamePlayerFamiliars))
+
+      UICreature
         id: creature
         anchors.centerIn: parent
         size: 256 256

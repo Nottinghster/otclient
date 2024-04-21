@@ -769,7 +769,7 @@ OutfitWindow < MainWindow
     anchors.bottom: separator.top
     margin-top: 5
     margin-bottom: 5
-    image-source: /images/ui/panel_flat
+    image-source: /images/ui/panel_side
     image-border: 1
     padding: 4
     padding-right: 15

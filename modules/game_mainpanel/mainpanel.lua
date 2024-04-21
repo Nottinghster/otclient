@@ -253,7 +253,7 @@ local function walkEvent()
     end
 end
 
-local function combatEvent()
+local function updateEvent()
     local chaseMode = g_game.getChaseMode()
     if chaseMode == 1 then
         chaseModeRadioGroup:selectWidget(chaseModeBox, true)
@@ -261,15 +261,21 @@ local function combatEvent()
         chaseModeRadioGroup:selectWidget(standModeBox, true)
     end
 
-    if g_game.getFightMode() == FightOffensive then
-        selectCombat('attack', false)
-    elseif g_game.getFightMode() == FightBalanced then
-        selectCombat('balanced', false)
-    elseif g_game.getFightMode() == FightDefensive then
-        selectCombat('defense', false)
+    local fightMode = g_game.getFightMode()
+    if fightMode == FightOffensive then
+        onSetFightMode('attack')
+    elseif fightMode == FightBalanced then
+        onSetFightMode('balanced')
+    elseif fightMode == FightDefensive then
+        onSetFightMode('defense')
     end
 
-    selectPvp(g_game.getPVPMode() == PVPRedFist, false)
+    local safeFight = g_game.isSafeFight()
+    g_game.setSafeFight(not safeFight)
+    
+    if g_game.getFeature(GamePVPMode) then
+        selectPvp(g_game.getPVPMode() == PVPRedFist)
+    end
 end
 
 local function inventoryEvent(player, slot, item, oldItem)
@@ -404,7 +410,8 @@ local function refreshInventorySizes()
         inventoryController.ui.offPanel:hide()
         refreshInventory_panel()
     end
-    combatEvent()
+
+    updateEvent()
     walkEvent()
     reloadMainPanelSizes()
 end
@@ -436,11 +443,12 @@ local inventoryControllerEvents = inventoryController:addEvent(LocalPlayer, {
 local inventoryControllerEvents_game = inventoryController:addEvent(g_game, {
     onWalk = walkEvent,
     onAutoWalk = walkEvent,
-    onFightModeChange = combatEvent,
-    onChaseModeChange = combatEvent,
-    onSafeFightChange = combatEvent,
-    onPVPModeChange = combatEvent
+    onFightModeChange = updateEvent,
+    onChaseModeChange = updateEvent,
+    onSafeFightChange = updateEvent,
+    onPVPModeChange = updateEvent
 })
+
 function inventoryController:onInit()
     refreshInventory_panel()
     local ui = getInventoryUi()
@@ -507,46 +515,36 @@ function selectPosture(key, ignoreUpdate)
     end
 end
 
-function selectCombat(combat, ignoreUpdate)
+function onSetFightMode(combat)
     local ui = getInventoryUi()
     if combat == 'attack' then
         ui.attack:setEnabled(false)
         ui.balanced:setEnabled(true)
         ui.defense:setEnabled(true)
-        if not ignoreUpdate then
-            g_game.setFightMode(FightOffensive)
-        end
+        g_game.setFightMode(FightOffensive)
     elseif combat == 'balanced' then
         ui.attack:setEnabled(true)
         ui.balanced:setEnabled(false)
         ui.defense:setEnabled(true)
-        if not ignoreUpdate then
-            g_game.setFightMode(FightBalanced)
-        end
+        g_game.setFightMode(FightBalanced)
     elseif combat == 'defense' then
         ui.attack:setEnabled(true)
         ui.balanced:setEnabled(true)
         ui.defense:setEnabled(false)
-        if not ignoreUpdate then
-            g_game.setFightMode(FightDefensive)
-        end
+        g_game.setFightMode(FightDefensive)
     end
 end
 
-function selectPvp(pvp, ignoreUpdate)
+function selectPvp(pvpModeRedFist)
     local ui = getInventoryUi()
-    if pvp then
+    if pvpModeRedFist then
         ui.pvp:setImageClip(
             ui.pvp.imageClipCheckedX .. ' ' .. ui.pvp.imageClipCheckedY .. ' ' .. ui.pvp.imageClipWidth .. ' 20')
-        if not ignoreUpdate then
-            g_game.setPVPMode(PVPRedFist)
-        end
+        g_game.setPVPMode(PVPRedFist)
     else
         ui.pvp:setImageClip(ui.pvp.imageClipUncheckedX .. ' ' .. ui.pvp.imageClipUncheckedY .. ' ' ..
                                 ui.pvp.imageClipWidth .. ' 20')
-        if not ignoreUpdate then
-            g_game.setPVPMode(PVPWhiteHand)
-        end
+        g_game.setPVPMode(PVPWhiteHand)
     end
 end
 

@@ -196,6 +196,18 @@ OutfitWindow < MainWindow
           text: Show Mount
 
       FlatPanel
+        id: showFamiliar
+        height: 22
+        padding: 5
+
+        CheckBox
+          id: check
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          anchors.right: parent.right
+          text: Show Familiar
+
+      FlatPanel
         id: showWings
         height: 22
         padding: 5
@@ -491,6 +503,26 @@ OutfitWindow < MainWindow
           image-source: /images/ui/outfits/checkbox_round
           text-offset: 15 0
           text: Mount:
+          width: 84
+        
+        FlatPanel
+          id: name
+          anchors.top: parent.top
+          anchors.bottom: parent.bottom
+          anchors.left: prev.right
+          anchors.right: parent.right
+
+      Panel
+        id: familiar
+        height: 20
+
+        CheckBox
+          id: check
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          image-source: /images/ui/outfits/checkbox_round
+          text-offset: 15 0
+          text: familiar:
           width: 84
         
         FlatPanel

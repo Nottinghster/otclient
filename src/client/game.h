@@ -128,6 +128,7 @@ protected:
     // outfit
     void processOpenOutfitWindow(const Outfit& currentOutfit, const std::vector<std::tuple<int, std::string, int> >& outfitList,
                                  const std::vector<std::tuple<int, std::string> >& mountList,
+                                 const std::vector<std::tuple<int, std::string> >& familiarList,
                                  const std::vector<std::tuple<int, std::string> >& wingsList,
                                  const std::vector<std::tuple<int, std::string> >& aurasList,
                                  const std::vector<std::tuple<int, std::string> >& effectsList,

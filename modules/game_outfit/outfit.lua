@@ -612,7 +612,7 @@ function newPreset()
         effects = "None",
         wings = "None",
         shader = "None",
-        mounted = window.configure.mount.check:isChecked()
+        mounted = window.configure.mount.check:isChecked(),
         familiar = window.configure.familiar.check:isChecked(),
     }
 

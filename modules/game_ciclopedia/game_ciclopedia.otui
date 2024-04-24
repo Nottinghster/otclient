@@ -1,0 +1,220 @@
+MainWindow
+  size: 700 538
+  !text: tr('Ciclopedia')
+  visible: false
+  @onEscape: toggle()
+
+  UIWidget
+    id: buttonSelection
+    anchors.top: parent.top
+    anchors.left: parent.left
+    size: 668 36
+    background-color: #404040
+    border-width-top: 1
+    border-color-top: black
+    border-width-left: 1
+    border-color-left: black
+    border-width-bottom: 1
+    border-color-bottom: #747474
+    border-width-right: 1
+    border-color-right: #747474
+
+    UIButton
+      id: items
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-left: 1
+      size: 668 36
+      @onClick: SelectWindow("items")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/items_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/items_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/items_off
+
+    UIButton
+      id: bestiary
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("bestiary")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/bestiary_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/bestiary_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/bestiary_off
+
+    UIButton
+      id: charms
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("charms")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/charms_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/charms_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/charms_off
+
+    UIButton
+      id: map
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("map")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/map_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/map_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/map_off
+
+    UIButton
+      id: houses
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("houses")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/houses_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/houses_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/houses_off
+
+    UIButton
+      id: character
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("character")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/character_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/character_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/character_off
+
+    UIButton
+      id: bosstiary
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("bosstiary")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/bosstiary_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/bosstiary_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/bosstiary_off
+
+    UIButton
+      id: bossSlot
+      anchors.top: prev.top
+      anchors.left: prev.right
+      margin-left: 1
+      @onClick: SelectWindow("bossSlot")
+
+      $on:
+        size: 150 34
+        image-clip: 0 0 150 34
+        image-source: /images/game/ciclopedia/bossSlot_on
+
+      $!on:
+        size: 34 34
+        image-clip: 0 0 34 34
+        image-source: /images/game/ciclopedia/bossSlot_off
+
+      $pressed:
+        size: 34 34
+        image-clip: 0 34 34 34
+        image-source: /images/game/ciclopedia/bossSlot_off
+
+  UIWidget
+    id: contentContainer
+    anchors.top: prev.bottom
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 5
+
+
+  HorizontalSeparator
+    id: separator
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 30
+
+  Button
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    text: Close
+    width: 60
+    @onClick: toggle()

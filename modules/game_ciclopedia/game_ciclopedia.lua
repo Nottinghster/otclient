@@ -37,7 +37,7 @@ function controllerCiclopedia:onInit()
     bosstiary = buttonSelection:recursiveGetChildById('bosstiary')
     bossSlot = buttonSelection:recursiveGetChildById('bossSlot')
 
---[[    note: 
+    --[[    note: 
      if not g_game.getFeature(GameCiclopedia) then
         return CiclopediaButton:hide()
     end 
@@ -54,21 +54,9 @@ function controllerCiclopedia:onGameEnd()
 end
 
 function controllerCiclopedia:onTerminate()
-    local widgets = {
-        CiclopediaButton,
-        contentContainer,
-        buttonSelection,
-        items,
-        bestiary,
-        charms,
-        map,
-        houses,
-        character,
-        bosstiary,
-        bossSlot
-    }
+    local widgets = {CiclopediaButton, contentContainer, buttonSelection, items, bestiary, charms, map, houses,
+                     character, bosstiary, bossSlot}
 
-    -- Iterar sobre la lista de widgets
     for i = 1, #widgets do
         local widget = widgets[i]
         if widget then
@@ -96,6 +84,7 @@ function show()
     controllerCiclopedia.ui:focus()
 end
 
+
 function SelectWindow(type)
     local windowTypes = {
         items = {obj = items,func = showItems},
@@ -113,7 +102,6 @@ function SelectWindow(type)
         previousType.obj:setOn(false)
     end
     contentContainer:destroyChildren()
-
 
     local window = windowTypes[type]
     if window then
@@ -169,14 +157,12 @@ function showCharacter()
     test:setText("showCharacter")
 end
 
-
 function showBossSlot()
     local test = g_ui.createWidget("Label", contentContainer)
     test:addAnchor(AnchorLeft, 'parent', AnchorLeft)
     test:addAnchor(AnchorTop, 'parent', AnchorTop)
     test:setText("showBossSlot")
 end
-
 
 function showBosstiary()
     local test = g_ui.createWidget("Label", contentContainer)

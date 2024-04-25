@@ -1,7 +1,0 @@
-Module
-  name: game_ciclopedia
-  description: game_ciclopedia
-  scripts: [ game_ciclopedia ]
-  sandboxed: true
-  @onLoad: controllerCiclopedia:init()
-  @onUnload: controllerCiclopedia:terminate()

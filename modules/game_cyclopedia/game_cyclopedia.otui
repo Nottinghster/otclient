@@ -1,6 +1,6 @@
 MainWindow
   size: 700 538
-  !text: tr('Ciclopedia')
+  !text: tr('Cyclopedia')
   visible: false
   @onEscape: toggle()
 
@@ -30,17 +30,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/items_on
+        image-source: /images/game/cyclopedia/items_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/items_off
+        image-source: /images/game/cyclopedia/items_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/items_off
+        image-source: /images/game/cyclopedia/items_off
 
     UIButton
       id: bestiary
@@ -52,17 +52,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/bestiary_on
+        image-source: /images/game/cyclopedia/bestiary_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/bestiary_off
+        image-source: /images/game/cyclopedia/bestiary_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/bestiary_off
+        image-source: /images/game/cyclopedia/bestiary_off
 
     UIButton
       id: charms
@@ -74,17 +74,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/charms_on
+        image-source: /images/game/cyclopedia/charms_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/charms_off
+        image-source: /images/game/cyclopedia/charms_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/charms_off
+        image-source: /images/game/cyclopedia/charms_off
 
     UIButton
       id: map
@@ -96,17 +96,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/map_on
+        image-source: /images/game/cyclopedia/map_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/map_off
+        image-source: /images/game/cyclopedia/map_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/map_off
+        image-source: /images/game/cyclopedia/map_off
 
     UIButton
       id: houses
@@ -118,17 +118,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/houses_on
+        image-source: /images/game/cyclopedia/houses_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/houses_off
+        image-source: /images/game/cyclopedia/houses_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/houses_off
+        image-source: /images/game/cyclopedia/houses_off
 
     UIButton
       id: character
@@ -140,17 +140,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/character_on
+        image-source: /images/game/cyclopedia/character_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/character_off
+        image-source: /images/game/cyclopedia/character_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/character_off
+        image-source: /images/game/cyclopedia/character_off
 
     UIButton
       id: bosstiary
@@ -162,17 +162,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/bosstiary_on
+        image-source: /images/game/cyclopedia/bosstiary_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/bosstiary_off
+        image-source: /images/game/cyclopedia/bosstiary_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/bosstiary_off
+        image-source: /images/game/cyclopedia/bosstiary_off
 
     UIButton
       id: bossSlot
@@ -184,17 +184,17 @@ MainWindow
       $on:
         size: 150 34
         image-clip: 0 0 150 34
-        image-source: /images/game/ciclopedia/bossSlot_on
+        image-source: /images/game/cyclopedia/bossSlot_on
 
       $!on:
         size: 34 34
         image-clip: 0 0 34 34
-        image-source: /images/game/ciclopedia/bossSlot_off
+        image-source: /images/game/cyclopedia/bossSlot_off
 
       $pressed:
         size: 34 34
         image-clip: 0 34 34 34
-        image-source: /images/game/ciclopedia/bossSlot_off
+        image-source: /images/game/cyclopedia/bossSlot_off
 
   UIWidget
     id: contentContainer

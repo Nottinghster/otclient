@@ -36,6 +36,6 @@ Module
     - game_stash
     - game_healthcircle
     - game_shop
-    - game_ciclopedia
+    - game_cyclopedia
   @onLoad: init()
   @onUnload: terminate()

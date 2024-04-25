@@ -6,28 +6,28 @@ local charms = nil
 local map = nil
 local houses = nil
 local character = nil
-local CiclopediaButton = nil
+local CyclopediaButton = nil
 local bosstiary = nil
 local bossSlot = nil
 
 function toggle()
-    if not controllerCiclopedia.ui then
+    if not controllerCyclopedia.ui then
         return
     end
-    if controllerCiclopedia.ui:isVisible() then
+    if controllerCyclopedia.ui:isVisible() then
         return hide()
     end
     show()
 end
 
-controllerCiclopedia = Controller:new()
-controllerCiclopedia:setUI('game_Ciclopedia')
-function controllerCiclopedia:onInit()
-    CiclopediaButton = modules.game_mainpanel.addToggleButton('CiclopediaButton', tr('Ciclopedia'),
+controllerCyclopedia = Controller:new()
+controllerCyclopedia:setUI('game_cyclopedia')
+function controllerCyclopedia:onInit()
+    CyclopediaButton = modules.game_mainpanel.addToggleButton('CyclopediaButton', tr('Cyclopedia'),
         '/images/options/cooldowns', toggle, false, 7)
-    CiclopediaButton:setOn(false)
-    contentContainer = controllerCiclopedia.ui:recursiveGetChildById('contentContainer')
-    buttonSelection = controllerCiclopedia.ui:recursiveGetChildById('buttonSelection')
+    CyclopediaButton:setOn(false)
+    contentContainer = controllerCyclopedia.ui:recursiveGetChildById('contentContainer')
+    buttonSelection = controllerCyclopedia.ui:recursiveGetChildById('buttonSelection')
     items = buttonSelection:recursiveGetChildById('items')
     bestiary = buttonSelection:recursiveGetChildById('bestiary')
     charms = buttonSelection:recursiveGetChildById('charms')
@@ -38,23 +38,23 @@ function controllerCiclopedia:onInit()
     bossSlot = buttonSelection:recursiveGetChildById('bossSlot')
 
     --[[    note: 
-     if not g_game.getFeature(GameCiclopedia) then
-        return CiclopediaButton:hide()
+     if not g_game.getFeature(GameCyclopedia) then
+        return CyclopediaButton:hide()
     end 
 ]]
 end
 
-function controllerCiclopedia:onGameStart()
-    print('onGameStart')
+function controllerCyclopedia:onGameStart()
+
 end
 
-function controllerCiclopedia:onGameEnd()
-    print('onGameEnd')
+function controllerCyclopedia:onGameEnd()
+
     hide()
 end
 
-function controllerCiclopedia:onTerminate()
-    local widgets = {CiclopediaButton, contentContainer, buttonSelection, items, bestiary, charms, map, houses,
+function controllerCyclopedia:onTerminate()
+    local widgets = {CyclopediaButton, contentContainer, buttonSelection, items, bestiary, charms, map, houses,
                      character, bosstiary, bossSlot}
 
     for i = 1, #widgets do
@@ -68,20 +68,20 @@ function controllerCiclopedia:onTerminate()
 end
 
 function hide()
-    if not controllerCiclopedia.ui then
+    if not controllerCyclopedia.ui then
         return
     end
-    controllerCiclopedia.ui:hide()
+    controllerCyclopedia.ui:hide()
 end
 
 function show()
-    if not controllerCiclopedia.ui or not CiclopediaButton then
+    if not controllerCyclopedia.ui or not CyclopediaButton then
         return
     end
 
-    controllerCiclopedia.ui:show()
-    controllerCiclopedia.ui:raise()
-    controllerCiclopedia.ui:focus()
+    controllerCyclopedia.ui:show()
+    controllerCyclopedia.ui:raise()
+    controllerCyclopedia.ui:focus()
 end
 
 
@@ -150,7 +150,7 @@ function showHouse()
 end
 
 function showCharacter()
-    print("showCharacter")
+
     local test = g_ui.createWidget("Label", contentContainer)
     test:addAnchor(AnchorLeft, 'parent', AnchorLeft)
     test:addAnchor(AnchorTop, 'parent', AnchorTop)

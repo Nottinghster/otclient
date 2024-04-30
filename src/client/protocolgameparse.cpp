@@ -2258,7 +2258,7 @@ void ProtocolGame::parseOpenOutfitWindow(const InputMessagePtr& msg) const
 
     if (g_game.getFeature(Otc::GameNewOutfitProtocol)) {
         const uint16_t outfitCount = g_game.getClientVersion() >= 1281 ? msg->getU16() : msg->getU8();
-        for (int_fast32_t i = 0; i < outfitCount; ++i) {
+        for (uint_fast16_t i = 0; i < outfitCount; ++i) {
             uint16_t outfitId = msg->getU16();
             const auto& outfitName = msg->getString();
             uint8_t outfitAddons = msg->getU8();
@@ -2283,14 +2283,15 @@ void ProtocolGame::parseOpenOutfitWindow(const InputMessagePtr& msg) const
             outfitEnd = msg->getU8();
         }
 
-        for (int_fast32_t i = outfitStart; i <= outfitEnd; ++i)
+        for (uint_fast16_t i = outfitStart; i <= outfitEnd; ++i)
             outfitList.emplace_back(i, "", 0);
     }
 
     std::vector<std::tuple<int, std::string> > mountList;
+
     if (g_game.getFeature(Otc::GamePlayerMounts)) {
         const uint16_t mountCount = g_game.getClientVersion() >= 1281 ? msg->getU16() : msg->getU8();
-        for (int_fast32_t i = 0; i < mountCount; ++i) {
+        for (uint_fast16_t i = 0; i < mountCount; ++i) {
             const uint16_t mountId = msg->getU16(); // mount type
             const auto& mountName = msg->getString(); // mount name
 
@@ -2305,56 +2306,67 @@ void ProtocolGame::parseOpenOutfitWindow(const InputMessagePtr& msg) const
         }
     }
 
-    std::vector<std::tuple<int, std::string> > wingList;
-    std::vector<std::tuple<int, std::string> > auraList;
-    std::vector<std::tuple<int, std::string> > effectList;
-    std::vector<std::tuple<int, std::string> > shaderList;
-   if (g_game.getFeature(Otc::GameWingsAurasEffectsShader)) {
-        int wingCount = msg->getU8();
-        for (int i = 0; i < wingCount; ++i) {
-            int wingId = msg->getU16();
-            std::string wingName = msg->getString();
-            wingList.push_back(std::make_tuple(wingId, wingName));
-        }
-        int auraCount = msg->getU8();
-        for (int i = 0; i < auraCount; ++i) {
-            int auraId = msg->getU16();
-            std::string auraName = msg->getString();
-            auraList.push_back(std::make_tuple(auraId, auraName));
-        }
-        int effectCount = msg->getU8();
-        for (int i = 0; i < effectCount; ++i) {
-            int effectId = msg->getU16();
-            std::string effectName = msg->getString();
-            effectList.push_back(std::make_tuple(effectId, effectName));
-        }
-        int shaderCount = msg->getU8();
-        for (int i = 0; i < shaderCount; ++i) {
-            int shaderId = msg->getU16();
-            std::string shaderName = msg->getString();
-            shaderList.push_back(std::make_tuple(shaderId, shaderName));
-        }
+    std::vector<std::tuple<int, std::string> > familiarList;
 
-  }
+    if (g_game.getFeature(Otc::GamePlayerFamiliars)) {
+        const uint16_t familiarCount = msg->getU16();
+        for (uint_fast16_t i = 0; i < familiarCount; ++i) {
+            const uint16_t familiarLookType = msg->getU16(); // familiar lookType
+            const auto& familiarName = msg->getString(); // familiar name
 
+            if (g_game.getClientVersion() >= 1281) {
+                const uint8_t familiarMode = msg->getU8(); // mode: 0x00 - available, 0x01 store (requires U32 store offerId)
+                if (familiarMode == 1) {
+                    msg->getU32();
+                }
+            }
+
+            familiarList.emplace_back(familiarLookType, familiarName);
+        }
+    }
 
     if (g_game.getClientVersion() >= 1281) {
-        const uint16_t familiarCount = msg->getU16();
-        for (int_fast32_t i = 0; i < familiarCount; ++i) {
-            msg->getU16(); // familiar lookType
-            msg->getString(); // familiar name
-            const uint8_t familiarMode = msg->getU8(); // 0x00 // mode: 0x00 - available, 0x01 store (requires U32 store offerId)
-            if (familiarMode == 1) {
-                msg->getU32();
-            }
-        }
-
         msg->getU8(); //Try outfit mode (?)
         msg->getU8(); // mounted
         msg->getU8(); // randomize mount (bool)
     }
 
-    g_game.processOpenOutfitWindow(currentOutfit, outfitList, mountList, wingList, auraList, effectList, shaderList);
+    std::vector<std::tuple<int, std::string> > wingList;
+    std::vector<std::tuple<int, std::string> > auraList;
+    std::vector<std::tuple<int, std::string> > effectList;
+    std::vector<std::tuple<int, std::string> > shaderList;
+
+    if (g_game.getFeature(Otc::GameWingsAurasEffectsShader)) {
+        const uint8_t wingCount = msg->getU8();
+        for (uint_fast8_t i = 0; i < wingCount; ++i) {
+            const uint16_t wingId = msg->getU16();
+            const auto& wingName = msg->getString();
+            wingList.emplace_back(wingId, wingName);
+        }
+
+        const uint8_t auraCount = msg->getU8();
+        for (uint_fast8_t i = 0; i < auraCount; ++i) {
+            const uint16_t auraId = msg->getU16();
+            const auto& auraName = msg->getString();
+            auraList.emplace_back(auraId, auraName);
+        }
+
+        const uint8_t effectCount = msg->getU8();
+        for (uint_fast8_t i = 0; i < effectCount; ++i) {
+            const uint16_t effectId = msg->getU16();
+            const auto& effectName = msg->getString();
+            effectList.emplace_back(effectId, effectName);
+        }
+
+        const uint8_t shaderCount = msg->getU8();
+        for (uint_fast8_t i = 0; i < shaderCount; ++i) {
+            const uint16_t shaderId = msg->getU16();
+            const auto& shaderName = msg->getString();
+            shaderList.emplace_back(shaderId, shaderName);
+        }
+    }
+
+    g_game.processOpenOutfitWindow(currentOutfit, outfitList, mountList, familiarList, wingList, auraList, effectList, shaderList);
 }
 
 void ProtocolGame::parseKillTracker(const InputMessagePtr& msg)

@@ -291,63 +291,74 @@ MiniWindow
     HorizontalSeparator
       id: separadorOnOffenceInfoChange
       margin-bottom: 5
+      visible: false
 
     SmallSkillButton
       id: skillId7
+      visible: false
       SkillNameLabel
         !text: tr('Critical Hit Chance')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId8
+      visible: false
       SkillNameLabel
         !text: tr('Critical Hit Damage')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId9
+      visible: false
       SkillNameLabel
         !text: tr('Life Leech Chance')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId10
+      visible: false
       SkillNameLabel
         !text: tr('Life Leech Amount')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId11
+      visible: false
       SkillNameLabel
         !text: tr('Mana Leech Chance')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId12
+      visible: false
       SkillNameLabel
         !text: tr('Mana Leech Amount')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId13
+      visible: false
       SkillNameLabel
         !text: tr('Fatal')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId14
+      visible: false
       SkillNameLabel
         !text: tr('Dodge')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId15
+      visible: false
       SkillNameLabel
         !text: tr('Momentum')
       SkillValueLabel
 
     SmallSkillButton
       id: skillId16
+      visible: false
       SkillNameLabel
         !text: tr('Transcendence')
       SkillValueLabel

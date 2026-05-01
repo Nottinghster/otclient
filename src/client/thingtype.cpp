@@ -462,7 +462,7 @@ void ThingType::unserialize(const uint16_t clientId, const ThingCategory categor
             break;
         }
 
-        if (g_game.getClientVersion() >= 1000) {
+        if (g_game.getClientVersion() >= 860) {
             /* In 10.10+ all attributes from 16 and up were
              * incremented by 1 to make space for 16 as
              * "No Movement Animation" flag.
@@ -475,11 +475,6 @@ void ThingType::unserialize(const uint16_t clientId, const ThingCategory categor
                 attr = ThingAttrDefaultAction;
             } else if (attr > 16)
                 attr -= 1;
-        } else if (g_game.getClientVersion() >= 860) {
-            /* Default attribute values follow
-             * the format of 8.6-9.86.
-             * Therefore no changes here.
-             */
         } else if (g_game.getClientVersion() >= 780) {
             /* In 7.80-8.54 all attributes from 8 and higher were
              * incremented by 1 to make space for 8 as
@@ -1134,7 +1129,7 @@ void ThingType::serialize(const FileStreamPtr& fin)
                 attr = ThingAttrWritable;
             else if (attr >= ThingAttrWritable)
                 attr += 1;
-        } else if (g_game.getClientVersion() >= 1000) {
+        } else if (g_game.getClientVersion() >= 860) {
             if (attr == ThingAttrNoMoveAnimation)
                 attr = 16;
             else if (attr >= ThingAttrPickupable)

@@ -429,6 +429,7 @@ function showOffers(id)
                     widget:getChildById("count"):show()
                 elseif categoryId == CATEGORY_OUTFIT then
                     currentOutfit.type = offersCache[i].id
+                    currentOutfit.addons = 3
                     outfit:show()
                     outfit:setOutfit(currentOutfit)
                 elseif categoryId == CATEGORY_MOUNT then
@@ -534,6 +535,7 @@ function updateDescription(self)
             item:setItemId(self.data.id)
         elseif categoryId == CATEGORY_OUTFIT then
             currentOutfit.type = self.data.id
+            currentOutfit.addons = 3
             outfit:show()
             outfit:setOutfit(currentOutfit)
         elseif categoryId == CATEGORY_MOUNT then

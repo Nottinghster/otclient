@@ -294,27 +294,29 @@ local function hideOldClientStats()
         skillsWindow:recursiveGetChildById('regenerationTime'):getChildByIndex(1):setText('Food')
         skillsWindow:recursiveGetChildById('experience'):getChildByIndex(1):setText('XP')
     end
+    
     local version = g_game.getClientVersion()
-    setSkillGroupVisibility('offence', features.charSkills)
-    setSkillGroupVisibility('defence', features.charSkills)
-    setSkillGroupVisibility('misc', features.charSkills)
-    setSkillGroupVisibility('GameAdditionalSkills', features.additionalSkills)
-    setSkillGroupVisibility('GameForgeSkillStats1332', features.forgeSkills and version >= 1332)
-    setSkillGroupVisibility('GameForgeSkillStats', features.forgeSkills)
-    -- For very old clients (before 1098) the skills list fits without a slider.
-    -- Keep the scrollbar track visible but hide the draggable slider so it's not interactive.
-    if version < 1098 then
-        local scroll = skillsWindow:recursiveGetChildById('miniwindowScrollBar')
-        if scroll then
-            local slider = scroll:getChildById('sliderButton')
-            if slider then
-                slider:setVisible(false)
+    local isOldVersion = version < 1098
+    
+    setSkillGroupVisibility('offence', features.charSkills and not isOldVersion)
+    setSkillGroupVisibility('defence', features.charSkills and not isOldVersion)
+    setSkillGroupVisibility('misc', features.charSkills and not isOldVersion)
+    setSkillGroupVisibility('GameAdditionalSkills', features.additionalSkills and not isOldVersion)
+    setSkillGroupVisibility('GameForgeSkillStats1332', (features.forgeSkills and version >= 1332) and not isOldVersion)
+    setSkillGroupVisibility('GameForgeSkillStats', features.forgeSkills and not isOldVersion)
+    
+    -- Hide separators for old versions
+    if isOldVersion then
+        local separators = {
+            'separadorOnOffenceInfoChange',
+            'separadorOnDefenseInfoChange',
+            'separadorOnForgeBonusesChange'
+        }
+        for _, sepId in ipairs(separators) do
+            local sep = skillsWindow:recursiveGetChildById(sepId)
+            if sep then
+                sep:setVisible(false)
             end
-        end
-         -- Also hide the offence info separator for old clients
-        local sep = skillsWindow:recursiveGetChildById('separadorOnOffenceInfoChange')
-        if sep then
-            sep:setVisible(false)
         end
     end
 end
@@ -828,6 +830,14 @@ function online()
         loadSkillsVisibilitySettings() 
     end, 100)
     hideOldClientStats()
+    
+    if g_game.getClientVersion() < 1098 then
+        local contentsPanel = skillsWindow:getChildById('contentsPanel')
+        if contentsPanel and contentsPanel.setAlwaysShowVerticalScrollBar then
+            contentsPanel:setAlwaysShowVerticalScrollBar(false)
+        end
+    end
+    
     updateHeight()
 end
 
@@ -921,7 +931,7 @@ function loadSkillsVisibilitySettings()
 end
 
 function updateHeight()
-    local maximumHeight = 8 -- margin top and bottom
+    local maximumHeight = 20 -- margin top and bottom
     local minimumHeight = 80 -- ensure minimum height is maintained
 
     if g_game.isOnline() then
@@ -940,7 +950,9 @@ function updateHeight()
                 if percentBar then
                     showPercentBar(skillButton, skillSettings[char][skillButton:getId()] ~= 1)
                 end
-                maximumHeight = maximumHeight + skillButton:getHeight() + skillButton:getMarginBottom()
+                
+                -- Precison fix: Include both margins
+                maximumHeight = maximumHeight + skillButton:getHeight() + skillButton:getMarginTop() + skillButton:getMarginBottom()
             end
         end
     else
@@ -948,8 +960,38 @@ function updateHeight()
     end
 
     local contentsPanel = skillsWindow:getChildById('contentsPanel')
+    if contentsPanel and g_game.getClientVersion() <= 1098 then
+        if contentsPanel.setAlwaysShowVerticalScrollBar then
+            contentsPanel:setAlwaysShowVerticalScrollBar(false)
+        end
+        
+        -- Force scrollbar disappearance if not needed (for older clients)
+        local scrollbar = skillsWindow:getChildById('miniwindowScrollBar')
+        if scrollbar then
+            local isVisible = false
+            if contentsPanel.isVerticalScrollBarVisible then
+                isVisible = contentsPanel:isVerticalScrollBarVisible()
+            else
+                isVisible = scrollbar:isVisible()
+            end
+            scrollbar:setWidth(isVisible and 14 or 0)
+            scrollbar:setVisible(isVisible)
+        end
+    end
+    
     skillsWindow:setContentMinimumHeight(math.max(minimumHeight, 44))
     skillsWindow:setContentMaximumHeight(maximumHeight)
+    
+    local bottomResizeBorder = skillsWindow:getChildById('bottomResizeBorder')
+    if bottomResizeBorder then
+        bottomResizeBorder:setVisible(skillsWindow:getMinimumHeight() < maximumHeight)
+        
+        -- Lock the window to not stretch infinitely (fixes the huge empty space in older clients)
+        local limitHeight = bottomResizeBorder:getMaximum()
+        if skillsWindow:getHeight() > limitHeight then
+            skillsWindow:setHeight(limitHeight)
+        end
+    end
 end
 
 local function resetTable(t)
@@ -1111,6 +1153,13 @@ end
 function onExperienceChange(localPlayer, value)
     setSkillValue('experience', comma_value(value))
     setSkillTooltip('experience', getExperienceTooltip(localPlayer))
+    if g_game.getClientVersion() < 870 and g_game.getFeature(GameDoubleExperience) then
+        if value > 9999999999 then
+            skillsWindow:recursiveGetChildById('experience'):getChildByIndex(1):setText('XP')
+        else
+            skillsWindow:recursiveGetChildById('experience'):getChildByIndex(1):setText('Experience')
+        end
+    end
 end
 
 function onLevelChange(localPlayer, value, percent)

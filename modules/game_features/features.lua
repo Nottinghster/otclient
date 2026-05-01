@@ -59,6 +59,12 @@ controller:registerEvents(g_game, {
 
         if version >= 860 then
             g_game.enableFeature(GameAttackSeq)
+            g_game.enableFeature(GamePlayerMounts)
+            g_game.enableFeature(GameDoubleExperience)
+            g_game.enableFeature(GameClientPing)
+            g_game.enableFeature(GameSpritesU32)
+            g_game.enableFeature(GameEnhancedAnimations)
+            g_game.enableFeature(GameIdleAnimations)
         end
 
         if version >= 862 then
